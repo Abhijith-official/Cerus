@@ -222,11 +222,14 @@ router.get('/farmer_logged',
     res.render('farmer_logged', { user: req.user, page_name: 'farmer_logged' });
   })
 
-
-
 //markets
 router.get('/markets', function (req, res) {
   res.render('markets', { user: req.user, page_name: 'markets' });
+});
+
+//consumer
+router.get('/consumer', function (req, res) {
+  res.render('consumer', { user: req.user, page_name: 'consumer' });
 });
 
 //distributors_logged

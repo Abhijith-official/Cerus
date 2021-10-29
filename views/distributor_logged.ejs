@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include ./partials/head %>  
+  </head>
+  <body>
+   <!-- START: header -->
+
+  <div class="probootstrap-loader"></div>
+
+  <header role="banner" class="probootstrap-header">
+     <!-- START: header -->
+<!-- add immediately after body tag-->
+<div class="container">
+  <img class="logo" src="/img/FoodPrintLogo.png" height="70px" width="70px" align="left" vertical-align="middle">
+  <a href="/" class="probootstrap-logo" style="color:#0cad1a;font-size:35px;background:-webkit-radial-gradient(#B0A432, #1B1A19);font-variant: small-caps;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+">CERUS<span> </span></a>
+  
+      <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
+      <div class="mobile-menu-overlay"></div>
+  
+      <nav role="navigation" class="probootstrap-nav hidden-xs">
+      <ul class="probootstrap-main-nav">
+          <li <% if (page_name === 'home') { %>class="active" <% } %> ><a href="/">Home</a></li>
+          <li <% if (page_name === 'about') { %>class="active" <% } %> ><a href="/about">About</a></li>
+          <!-- <li <% if (page_name === 'gallery') { %>class="active" <% } %> ><a href="/gallery">Produce</a></li> -->
+          <!-- <li <% if (page_name === 'farmers') { %>class="active" <% } %> ><a href="/farmers">Farmers</a></li> -->
+          <!-- <li <% if (page_name === 'markets') { %>class="active" <% } %> ><a href="/markets">Markets</a></li> -->
+          <li <% if (page_name === 'markets') { %>class="active" <% } %> ><a href="/markets">Distributors</a></li>
+          <!-- <li <% if (page_name === 'retailers') { %>class="active" <% } %> ><a href="/retailers">Retailers</a></li> -->
+  
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Operations
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/app/auth/login">Dashboard</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/auth/login">Reporting & Analytics</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/harvest">Harvest Logbook</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/storage">Storage/Handover Logbook</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/trace_produce">Trace Produce</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/blockchain_explorer">Blockchain Explorer</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/weekly">Weekly View</a>
+          </div>
+          </li>
+  
+          <!-- <li <% if (page_name === 'supplychain') { %>class="active" <% } %> ><a href="/app/supplychain">Supply Chain</a></li> This was from very first pilot with harvest and storage on one page July 2019 -->
+          <!--<li <% if (page_name === 'config') { %>class="active" <% } %> ><a href="/config">Config</a></li> --> 
+          <li <% if (page_name === 'login') { %>class="active" <% } %> >
+              <% if (user) { %>
+                  <a href="/app/auth/logout">Log out (<%=user.username%>)</a>
+                <% } else { %>
+                  <a href="/app/auth/login"><b>Log in</b></a>
+                <% } %>
+          </li>
+      </ul>
+      <div class="extra-text visible-xs">
+          <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+          <h5>Connect</h5>
+          <ul class="social-buttons">
+          <li><a href="#"><i class="icon-twitter"></i></a></li>
+          <li><a href="#"><i class="icon-facebook2"></i></a></li>
+          <li><a href="#"><i class="icon-instagram2"></i></a></li>
+          </ul>
+      </div>
+      </nav>
+  </div>
+  <!-- END: header -->
+  </header>
+  <!-- END: header -->
+
+   <!-- START TABLE-->
+   <div class="container" style="width: 100%;">
+    <h3>SCAN PRODUCT</h3>
+    <div>
+      <!-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAdd">Add New Harvest</button> -->
+      <!-- <a class="btn btn-primary btn-sm" onclick="ShowModal(this, 'add', 'Add Harvest Entry','addCSS')">Add New Harvest Entry</a> -->
+      <a class="btn btn-primary btn-sm enableBlockchainButton" >Enable Blockchain Wallet</a>
+      <p>Connected Account: <span class="showAccount"></span></p>
+    </div>
+    <div class="row align-items-center justify-content-center">
+      <!-- START TRACE PRODUCE-->
+        <div class="col-md-6 col-md-offset-3"> <!-- col-md-offset-3 class that will offset by 3 columns, given that Bootstrap has a 12-column grid this will put a col-md-6 element right in the center. -->
+          <!-- <h3>TRACE PRODUCE</h3>-->
+          
+           <!-- <h5>Produce Search Form</h5> -->
+          <form id="search_form">
+              <div class="form-group">
+                <input type="text" id="search_term" class="form-control" placeholder="Enter Produce Name, Harvest ID or Storage ID" required>
+              </div>  
+              <div class="form-group">
+                <button class="btn btn-primary">Search</button>
+              </div>
+          </form>
+          <hr>
+          </div>
+          </div>
+    
+    <% include ./partials/notificationbar %>
+    
+    <br>
+    <br><h3>Action to be made by the Distributor:</h3>
+      <table class="table table-hover table-condensed table-responsive" id="harvesttable">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Harvest ID</th>
+            <th scope="col">Harvest Datetime</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Produce</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody  >
+          <!-- WHILE CONNECTING THE DATABASE IN ACTION ADD "VIEW", "ACCEPT", "REJECT" -->
+          
+    
+        </tbody>
+    </table>
+   </div>
+   <!-- END TABLE-->
+
+
+
+ 
+
+    <!-- start footer -->
+    <% include ./partials/footer %>
+    <!-- end footer -->
+    
+   <!--<script type="text/javascript" src="/js/bundle.js"></script>-->
+
+    
+  <script src="/js/scripts.min.js"></script><!--/*! jQuery v1.12.4 | (c) jQuery Foundation | jquery.org/license */-->
+  <script src="/js/main.min.js"></script>  <!--  Bootstrap v3.3.7 -->
+   
+   <script type="text/javascript" src="/js/moment-with-locales.min.js"></script> <!--datetime picker -->
+   <script type="text/javascript" src="/js/moment-timezone-with-data-2012-2022.min.js"></script> <!--datetime picker -->
+   <script src="/js/tempusdominus-bootstrap-3.js"></script> <!--datetime picker -->
+
+  <script src="/js/custom.js"></script><!-- Subscribe-->
+
+<!--  <script src="/js/web3.min.js"></script>&lt;!&ndash; Blockchain &ndash;&gt;-->
+<!--  <script src="/js/truffle-contract.js"></script>&lt;!&ndash; Blockchain &ndash;&gt;-->
+  <script src="/js/sha256.min.js"></script><!-- Blockchain -->
+
+
+  <script type="text/javascript">
+    $(function () {
+                    $('#datetimepicker1').datetimepicker();
+                });
+
+    $(function () {
+      $('.form_datetime').datetimepicker();
+     /*    $('.form_datetime').datetimepicker({
+          weekStart: 1,
+          todayBtn:  1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      forceParse: 0,
+          showMeridian: 1
+      }); */
+    });
+
+    
+  </script>
+  
+  <script type="text/javascript">
+    function ShowModal(obj_identifier, action, header, contentClassID) {
+      var updateButton=$('<input/>').attr({
+          type: "submit",
+          id: "harvestModalUpdate",
+          value: 'Update',
+          class:"btn btn-primary"
+      });
+
+      var addButton=$('<input/>').attr({
+          type: "submit",
+          id: "harvestModalAdd",
+          value: 'Add',
+          class:"btn btn-primary"
+      });
+
+      var deleteButton=$('<input/>').attr({
+          type: "submit",
+          id: "harvestModalDelete",
+          value: 'Delete',
+          class:"btn btn-danger"
+      });
+
+      var closeButton=$('<input/>').attr({
+          type: "submit",
+          id: "harvestModalClose",
+          value: 'Close',
+          class:"btn btn-secondary",
+          'data-dismiss':"modal"
+      });
+
+      var harvest_logid = $(obj_identifier).data('harvest_logid');
+      var harvest_suppliershortcode = $(obj_identifier).data('harvest_suppliershortcode'); 
+      var harvest_suppliername = $(obj_identifier).data('harvest_suppliername');
+      var harvest_farmername = $(obj_identifier).data('harvest_farmername');
+      var harvest_supplieraddress = $(obj_identifier).data('harvest_supplieraddress');
+      var harvest_producename = $(obj_identifier).data('harvest_producename');
+      var harvest_photohash = $(obj_identifier).data('harvest_photohash');
+      var harvest_photoimage = harvest_photohash;
+      var harvest_timestamp = $(obj_identifier).data('harvest_timestamp');
+      var harvest_capturetime = $(obj_identifier).data('harvest_capturetime');
+      var harvest_description = $(obj_identifier).data('harvest_description');
+      var harvest_geolocation = $(obj_identifier).data('harvest_geolocation');
+      var harvest_quantity = $(obj_identifier).data('harvest_quantity');
+      var harvest_unitofmeasure = $(obj_identifier).data('harvest_unitofmeasure');
+      var harvest_description_json = $(obj_identifier).data('harvest_description_json');
+      var harvest_blockchainhashid = $(obj_identifier).data('harvest_blockchainhashid');
+      var harvest_blockchainhashdata = $(obj_identifier).data('harvest_blockchainhashdata');
+      var supplierproduce = $(obj_identifier).data('supplierproduce');
+      var harvest_bool_added_to_blockchain = $(obj_identifier).data('harvest_bool_added_to_blockchain');
+      var harvest_added_to_blockchain_date = $(obj_identifier).data('harvest_added_to_blockchain_date');
+      var harvest_added_to_blockchain_by = $(obj_identifier).data('harvest_added_to_blockchain_by');
+      var harvest_blockchain_uuid = $(obj_identifier).data('harvest_blockchain_uuid');
+      var harvest_user = $(obj_identifier).data('harvest_user');
+      var year_established = $(obj_identifier).data('year_established');
+      var covid19_response = $(obj_identifier).data('covid19_response');
+      var logdatetime = $(obj_identifier).data('logdatetime');
+      var lastmodifieddatetime = $(obj_identifier).data('lastmodifieddatetime');
+
+      console.log("harvest_logid - " + harvest_logid);
+      // console.log("supplierproduce - " + supplierproduce);
+      // console.log("harvest_TimeStamp - " + harvest_TimeStamp);
+      // console.log("harvest_supplierName - " + harvest_supplierName);
+      // console.log("harvest_photohash - " + harvest_photohash);
+      //console.log("harvest_photoimage - " + harvest_photoimage);
+
+      console.log("harvest_description_json - " + harvest_description_json);
+      if(typeof harvest_description_json !== "undefined")
+      {
+        if (harvest_description_json.indexOf("Pesticide Free") != -1)
+        {
+          $("#viewmodal_harvest_description_json_pestfree").prop("checked", true);
+        }
+
+        if (harvest_description_json.indexOf("Certified Organic") != -1)
+        {
+          $("viewmodal_harvest_description_json_certorganic").prop("checked", true);
+        }
+
+        if (harvest_description_json.indexOf("Non-Certified Organic") != -1)
+        {
+          $("#viewmodal_harvest_description_json_noncertorganic").prop("checked", true);
+        }
+
+        if (harvest_description_json.indexOf("Conventional") != -1)
+        {
+          $("#viewmodal_harvest_description_json_conventional").prop("checked", true);
+        }
+
+        if (harvest_description_json.indexOf("Free Range") != -1)
+        {
+          $("#viewmodal_harvest_description_json_freerange").prop("checked", true);
+        }
+
+        if (harvest_description_json.indexOf("Greenhouse Grown") != -1)
+        {
+          $("#viewmodal_harvest_description_json_greenhouse").prop("checked", true);
+        }
+
+        if (harvest_description_json.indexOf("Non-GMO") != -1)
+        {
+          $("#viewmodal_harvest_description_json_gmo").prop("checked", true);
+        }
+      }
+      $('#viewmodal_harvest_logid').val(harvest_logid);
+      $('#viewmodal_harvest_suppliershortcode').val(harvest_suppliershortcode);
+      $('#viewmodal_harvest_suppliername').val(harvest_suppliername);
+      $('#viewmodal_harvest_farmername').val(harvest_farmername);
+      $('#viewmodal_harvest_supplieraddress').val(harvest_supplieraddress);
+      $('#viewmodal_harvest_producename').val(harvest_producename);
+      //$('#viewmodal_harvest_photohash').val(harvest_photohash);            
+      $('#viewmodal_harvest_photoimage').attr("src", harvest_photoimage);
+
+      $('#viewmodal_harvest_timestamp').val(harvest_timestamp);
+      $('#viewmodal_harvest_capturetime').val(harvest_capturetime);
+      $('#viewmodal_harvest_description').val(harvest_description);
+      $('#viewmodal_harvest_geolocation').val(harvest_geolocation);
+      $('#viewmodal_harvest_quantity').val(harvest_quantity);
+      $('#viewmodal_harvest_unitofmeasure').val(harvest_unitofmeasure);
+      $('#viewmodal_harvest_description_json').val(harvest_description_json);
+      $('#viewmodal_harvest_blockchainhashid').val(harvest_blockchainhashid);
+      $('#viewmodal_harvest_blockchainhashdata').val(harvest_blockchainhashdata);
+      $('#viewmodal_supplierproduce').val(supplierproduce);
+      $('#viewmodal_harvest_bool_added_to_blockchain').val(harvest_bool_added_to_blockchain);
+      $('#viewmodal_harvest_added_to_blockchain_date').val(harvest_added_to_blockchain_date);
+      $('#viewmodal_harvest_added_to_blockchain_by').val(harvest_added_to_blockchain_by);
+      $('#viewmodal_harvest_blockchain_uuid').val(harvest_blockchain_uuid);
+      $('#viewmodal_harvest_user').val(harvest_user);
+      $('#viewmodal_harvest_year_established').val(year_established);
+      $('#viewmodal_harvest_covid19_response').val(covid19_response);
+      $('#viewmodal_logdatetime').val(logdatetime);
+      $('#viewmodal_lastmodifieddatetime').val(lastmodifieddatetime);
+
+    //remove modal buttons, then re-add
+      $('#harvestModalUpdate').remove();
+      $('#harvestModalAdd').remove();
+      $('#harvestModalDelete').remove();
+      $('#harvestModalClose').remove();
+    
+    if (action==='add'){
+      $("#modalBodyContainer :input").attr("disabled", false);
+      $("#modalBodyContainer :input").attr("required", true);
+      
+      //System populated:
+      //viewmodal_harvest_photoimageDiv, viewmodal_harvest_blockchainhashidDiv, viewmodal_harvest_blockchainhashdataDiv,
+      //viewmodal_harvest_bool_added_to_blockchainDiv, viewmodal_harvest_added_to_blockchain_dateDiv, 
+      //viewmodal_harvest_userDiv, viewmodal_harvest_blockchain_uuidDiv, viewmodal_harvest_added_to_blockchain_byDiv,
+      //viewmodal_harvest_capturetime, viewmodal_logdatetime, viewmodal_lastmodifieddatetime and viewmodal_harvest_logid 
+
+      //Hide divs for System populated elements
+      $("#viewmodal_harvest_photoimageDiv").hide();  
+      $("#viewmodal_harvest_blockchainhashidDiv").hide();  
+      $("#viewmodal_harvest_blockchainhashdataDiv").hide();  
+      $("#viewmodal_harvest_bool_added_to_blockchainDiv").hide();  
+      $("#viewmodal_harvest_added_to_blockchain_dateDiv").hide();  
+      $("#viewmodal_harvest_userDiv").hide();  
+      $("#viewmodal_harvest_blockchain_uuidDiv").hide();  
+      $("#viewmodal_harvest_added_to_blockchain_byDiv").hide();  
+      //
+      $("#viewmodal_harvest_capturetimeDiv").hide();  
+      $("#viewmodal_logdatetimeDiv").hide();  
+      $("#viewmodal_lastmodifieddatetimeDiv").hide();  
+      $("#viewmodal_harvest_logidDiv").hide();  
+      
+
+      //Make System populated elements not required otherwise Add Harvest Form will not submit
+      $("#viewmodal_harvest_photoimage").attr("required", false);
+      $("#viewmodal_harvest_blockchainhashid").attr("required", false);
+      $("#viewmodal_harvest_blockchainhashdata").attr("required", false);
+      $("#viewmodal_harvest_bool_added_to_blockchain").attr("required", false);
+      $("#viewmodal_harvest_added_to_blockchain_date").attr("required", false);
+      $("#viewmodal_harvest_user").attr("required", false);
+      $("#viewmodal_harvest_blockchain_uuid").attr("required", false);
+      $("#viewmodal_harvest_added_to_blockchain_by").attr("required", false);
+      
+      //
+      $("#viewmodal_harvest_capturetime").attr("required", false);
+      $("#viewmodal_logdatetime").attr("required", false);
+      $("#viewmodal_lastmodifieddatetime").attr("required", false);
+      $("#viewmodal_harvest_logid").attr("required", false);
+
+      // Harvest description  checkboxes should not be required
+      $("#viewmodal_harvest_description_json_pestfree").attr("required", false);
+      $("#viewmodal_harvest_description_json_certorganic").attr("required", false);
+      $("#viewmodal_harvest_description_json_noncertorganic").attr("required", false);
+      $("#viewmodal_harvest_description_json_conventional").attr("required", false);
+      $("#viewmodal_harvest_description_json_freerange").attr("required", false);
+      $("#viewmodal_harvest_description_json_greenhouse").attr("required", false);
+      $("#viewmodal_harvest_description_json_gmo").attr("required", false);
+
+      $("#harvestDeleteDiv").hide();  // hide confirm delete checkbox
+      $("#harvestDelete").attr("required", false); // make confirm delete checkbox not required otherwise form will not submit
+
+      $("#harvestCheckDiv").show();  // show confirm add/edit checkbox
+
+      $("#modalFooter").append(addButton);  
+      $("#modalFooter").append(closeButton);  
+    }
+    else if (action==='view'){
+      $("#modalBodyContainer :input").attr("disabled", true); //make fields read-only
+      // $('#form1 input').attr('readonly', 'readonly');    
+
+      //SHOW DIVS
+      //System populated:
+      //viewmodal_harvest_blockchainhashidDiv, viewmodal_harvest_blockchainhashdataDiv,
+      //viewmodal_harvest_bool_added_to_blockchainDiv, viewmodal_harvest_added_to_blockchain_dateDiv, 
+      //viewmodal_harvest_userDiv, viewmodal_harvest_blockchain_uuidDiv, viewmodal_harvest_added_to_blockchain_byDiv
+
+      $("#viewmodal_harvest_photoimageDiv").show(); 
+      $("#viewmodal_harvest_blockchainhashidDiv").show();  
+      $("#viewmodal_harvest_blockchainhashdataDiv").show();  
+      $("#viewmodal_harvest_bool_added_to_blockchainDiv").show();  
+      $("#viewmodal_harvest_added_to_blockchain_dateDiv").show();  
+      $("#viewmodal_harvest_userDiv").show();  
+      $("#viewmodal_harvest_blockchain_uuidDiv").show();  
+      $("#viewmodal_harvest_added_to_blockchain_byDiv").show();  
+      
+      $("#viewmodal_harvest_capturetimeDiv").show();  
+      $("#viewmodal_logdatetimeDiv").show();  
+      $("#viewmodal_lastmodifieddatetimeDiv").show();  
+      $("#viewmodal_harvest_logidDiv").show();  
+
+      $("#harvestCheckDiv").hide();  // hide confirm add/edit checkbox
+      $("#harvestDeleteDiv").hide();  // hide confirm delete checkbox
+      $("#modalFooter").append(closeButton);  
+    }
+    else if (action==='update'){
+      $("#modalBodyContainer :input").attr("disabled", false);
+      
+      //TODO $("#viewmodal_logdatetime").attr('readonly', true);
+      //$("#viewmodal_logdatetime_calendar").attr('readonly', true);
+      // $("#viewmodal_logdatetime_calendar_icon").attr('readonly', true);
+
+
+      //cannot modify image once it has been added
+      $("#viewmodal_harvest_photoimageDiv").show();  
+      $("#viewmodal_harvest_photohash").attr('disabled', true);
+
+    // Harvest description checkboxes should  be read-only
+    $("#viewmodal_harvest_description_json_pestfree").attr('disabled', true);
+    $("#viewmodal_harvest_description_json_certorganic").attr('disabled', true);
+    $("#viewmodal_harvest_description_json_noncertorganic").attr('disabled', true);
+    $("#viewmodal_harvest_description_json_conventional").attr('disabled', true);
+    $("#viewmodal_harvest_description_json_freerange").attr('disabled', true);
+    $("#viewmodal_harvest_description_json_greenhouse").attr('disabled', true);
+    $("#viewmodal_harvest_description_json_gmo").attr('disabled', true);
+
+      $("#viewmodal_harvest_added_to_blockchain_dateDiv").show();  
+      $("#viewmodal_harvest_capturetimeDiv").show();  //TODO - this should be readonly
+      $("#viewmodal_logdatetimeDiv").show();  //TODO - this should be readonly
+      $("#viewmodal_lastmodifieddatetimeDiv").show();  //TODO - this should be readonly
+
+      $("#viewmodal_harvest_logidDiv").show();  
+      $("#viewmodal_harvest_logid").attr('readonly', true);
+
+      $("#harvestDeleteDiv").hide();  // hide confirm delete checkbox
+      $("#harvestDelete").attr("required", false); // make confirm delete checkbox not required otherwise form will not submit
+
+      $("#harvestCheckDiv").show();  // show confirm add/edit checkbox
+
+      $("#modalFooter").append(updateButton);  
+      $("#modalFooter").append(closeButton);  
+      $('#harvestModalForm').attr('action', '/app/harvest/update');
+    }
+    else if (action==='delete'){
+      $("#modalBodyContainer :input").attr("disabled", true);
+      $("#harvestCheckDiv").hide();  // hide confirm add/edit checkbox
+      $("#harvestCheck").attr("required", false); // make confirm confirm add/edit checkbox not required in case form will not submit
+
+      $("#harvestDeleteDiv").show();  // show confirm delete checkbox
+
+      //make viewmodal_harvest_logid readonly not disabled so it is sent via web request
+      $("#viewmodal_harvest_logid").attr("disabled", false); 
+      $("#viewmodal_harvest_logid").attr('readonly', true);
+
+      $("#modalFooter").append(deleteButton);  
+      $("#modalFooter").append(closeButton);  
+      $('#harvestModalForm').attr('action', '/app/harvest/delete');
+    }
+
+    $('#harvestModalLabel').html(header);
+    $('#modalBodyContainer').removeAttr('class'); //if already exists remove it
+    $('#modalBodyContainer').addClass(contentClassID);
+    $('#harvestViewModal').modal('show');
+  }
+   </script>
+   <script>
+
+     function accept(){
+
+      
+
+  document.getElementById("accept").disabled = true;
+  document.getElementById("reject").disabled = true;
+  location.replace("http://localhost:3000/app/storage");
+
+
+     }
+     function view(s){
+      window.alert(s);
+      
+     }
+    $('#search_form').submit(function (event) {
+		event.preventDefault();
+		//collect the form data using Id Selector what ever data you need to send to server
+		var data = {};
+		data.search_term=$('#search_term').val();
+		$.ajax({
+			url: '/app/traceproduce',
+			data: JSON.stringify(data),
+			processData: false,
+			type: 'POST',
+			contentType: 'application/json'
+		}).done(function(res) {
+      $('#search_result_title').html('<h5>Produce Search Results</h5>');
+      
+			if (res.success) {
+        $('#error-group').hide();
+        $('#search_result_title_storage').html('<h6>Produce Storage Entries</h6>');
+        $('#search_result_title_harvest').html('<h6>Produce Harvest Results</h6>');
+        
+        $('#search_result_storage').css('display', 'block');
+				  var produce_storage_data = JSON.parse(JSON.stringify(res.produce_storage_data));
+				  var produceStorageContainer = $('#search_result_storage');
+				  produceStorageContainer.innerHTML = '';
+				  var produceStorageList = '';
+          var $harvesttable = jQuery("harvesttable");
+          var $actiontable = jQuery("actiontable");
+          
+              
+				  for (var i = 0; i < produce_storage_data.length; i++) {
+           
+            var row = $('<tr/>');  
+            row.append("<td>" + (i+1)  + "</td>");
+            row.append("<td>" + produce_storage_data[i].storage_logid + "</td>");
+            row.append("<td>" + produce_storage_data[i].harvest_logid  + "</td>");
+            row.append("<td>" +produce_storage_data[i].market_storageTimeStamp + "</td>");
+            row.append("<td>" + produce_storage_data[i].supplierproduce + "</td>");
+            $('#actiontable').append(row);
+				  }
+				  produceStorageContainer.html(produceStorageList);
+          //console.log('produceStorageList success...ajax' + produceStorageList);
+          //884aed05-4ef8-4ca4-a95f-f876cef7da5d
+
+        $('#search_result_harvest').css('display', 'block');
+				  var produce_harvest_data = JSON.parse(JSON.stringify(res.produce_harvest_data));
+				  var produceHarvestContainer = $('#search_result_harvest');
+				  produceHarvestContainer.innerHTML = '';
+				  var produceHarvestList = '';
+				  for (var i = 0; i < produce_harvest_data.length; i++) {
+            var row = $('<tr/>');  
+            row.append("<td>" + (i+1)  + "</td>");
+            row.append("<td>" + produce_harvest_data[i].harvest_logid  + "</td>");
+            row.append("<td>" + produce_harvest_data[i].harvest_TimeStamp  + "</td>");
+            row.append("<td>" +produce_harvest_data[i].harvest_supplierName + "</td>");
+            row.append("<td>" + produce_harvest_data[i].harvest_produceName + "</td>");
+            row.append("<td>" + "<div><button onclick='view()'>view</button> <space> <button onclick='accept()' id='accept'>accept</button> <button onclick='accept()' id='reject'>reject</button></div>" + "</td>");
+            $('#harvesttable').append(row);
+            
+          
+                                  
+				  }
+                  
+				 produceHarvestContainer.html(produceHarvestList);
+
+          
+			} else {
+				$('#error-group').css('display', 'block');
+				  var errors = JSON.parse(JSON.stringify(res.errors));
+				  var errorsContainer = $('#errors');
+				  errorsContainer.innerHTML = '';
+				  var errorsList = '';
+
+				  for (var i = 0; i < errors.length; i++) {
+					errorsList += '<li>' + errors[i].msg + '</li>';
+				  }
+				  errorsContainer.html(errorsList);
+				  console.log('error...ajax' + errorsList);
+			}
+		  });
+	});
+  </script>
+   <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+           type="application/javascript"></script> <!-- This exposes the library as a global variable: ethers -->
+   <script src="/js/cerus_blockchain.js"></script> <!-- Blockchain integration -->
+  </body>
+</html>
+
+
+
+
+
