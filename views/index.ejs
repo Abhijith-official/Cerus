@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include ./partials/head %>  
+  </head>
+  <body>
+   <!-- START: header -->
+
+  <div class="probootstrap-loader"></div>
+
+  <header role="banner" class="probootstrap-header">
+    <!-- views/partials/header.ejs -->
+<!-- START: header -->
+<!-- add immediately after body tag-->
+<div class="container">
+  <img class="logo" src="/img/FoodPrintLogo.png" height="70px" width="70px" align="left" vertical-align="middle">
+      <a href="/" class="probootstrap-logo" style="color:#0cad1a;font-size:35px;background:-webkit-radial-gradient(#B0A432, #1B1A19);font-variant: small-caps;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+  ">CERUS<span> </span></a>
+  
+      <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
+      <div class="mobile-menu-overlay"></div>
+  
+      <nav role="navigation" class="probootstrap-nav hidden-xs">
+      <ul class="probootstrap-main-nav">
+          <li <% if (page_name === 'home') { %>class="active" <% } %> ><a href="/">Home</a></li>
+          <li <% if (page_name === 'about') { %>class="active" <% } %> ><a href="/about">About</a></li>
+          <!-- <li <% if (page_name === 'gallery') { %>class="active" <% } %> ><a href="/gallery">Produce</a></li> -->
+          <li <% if (page_name === 'farmers') { %>class="active" <% } %> ><a href="/farmers">Farmers</a></li>
+          <li <% if (page_name === 'markets') { %>class="active" <% } %> ><a href="/markets">Distributors</a></li>
+          
+  
+         
+          <li <% if (page_name === 'login') { %>class="active" <% } %> >
+              <% if (user) { %>
+                  <a href="/app/auth/logout">Log out (<%=user.username%>)</a>
+                <% } else { %>
+                  <a href="/app/auth/login"><b>Log in</b></a>
+                <% } %>
+          </li>
+      </ul>
+      <div class="extra-text visible-xs">
+          <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+          <h5>Connect</h5>
+          <ul class="social-buttons">
+          <li><a href="#"><i class="icon-twitter"></i></a></li>
+          <li><a href="#"><i class="icon-facebook2"></i></a></li>
+          <li><a href="#"><i class="icon-instagram2"></i></a></li>
+          </ul>
+      </div>
+      </nav>
+  </div>
+  <!-- END: header -->
+  </header>
+  <!-- END: header -->
+  
+  <section class="probootstrap-slider flexslider">
+    <div class="probootstrap-text-intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="probootstrap-slider-text text-center">
+              <h2 class="probootstrap-heading probootstrap-animate mb20" data-animate-effect="fadeIn" style="opacity: 0.7;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">SAFETY.First. </h2>
+              <br><div class="probootstrap-animate probootstrap-sub-wrap mb30" data-animate-effect="fadeIn">We consider your safety and geniuity first.</div>
+              <p class="probootstrap-animate" data-animate-effect="fadeIn"><a href="#" class="btn btn-ghost btn-ghost-white">LEARN MORE - Cerus</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(/img/straw_2.jpg);"></li>
+      <li style="background-image: url(/img/straw_1.jpg);"></li>
+<!--      <li style="background-image: url(/img/oranges_bg.jpg);"></li>-->
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <div class="container">
+      
+    <% include ./partials/notificationbar %>
+  </div>
+
+ 
+
+  <section class="probootstrap-section" style="background-image: url(/img/fruitFour.jpg)">
+    <div class="container">
+      <div class="probootstrap-section-heading text-center mb50 probootstrap-animate">
+        <h3 class="heading" style="color: white">ALIGNMENT WITH Sustainable Development Goals</h3>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 probootstrap-animate">
+          <div class="media-item">
+            <figure><img src="img/E_WEB_02.png" alt="SDG 2 - Zero Hunger" class="img-responsive"></figure>
+          </div>
+        </div>
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 probootstrap-animate">
+          <div class="media-item">
+            <figure><img src="img/E_WEB_08.png" alt="SDG 8 - Decent Work and Economic Growth" class="img-responsive" ></figure>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 probootstrap-animate">
+          <div class="media-item">
+            <figure><img src="img/E_WEB_09.png" alt="SDG 9 - Industry, Innovation and Infrastructure" class="img-responsive"></figure>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 probootstrap-animate">
+          <div class="media-item">
+            <figure><img src="img/E_WEB_12.png" alt="SDG 12 - Responsible Consumption and Production" class="img-responsive"></figure>
+          </div>
+        </div>
+
+        <div class="clearfix visible-lg-block visible-md-block visible-sm-block"></div>
+
+
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Scan QR Code to see our technology in action - add a FoodPrint QR Code -->
+  <!-- <section class="probootstrap-section probootstrap-bg" style="background-image: url(img/food_bg.jpg);">
+    <div class="container text-center">
+    <h2 class="heading probootstrap-animate fadeIn probootstrap-animated" data-animate-effect="fadeIn">Join the food revolution</h2>
+    <p class="sub-heading probootstrap-animate fadeIn probootstrap-animated" data-animate-effect="fadeIn">Get more information or request a consultation.</p>
+    <a class="btn btn-primary"  href="/contact">GET STARTED WITH FOODPRINT</a> 
+    </div>
+  </section> -->
+
+  <!-- start footer -->
+  <% include ./partials/footer %>
+  <!-- end footer -->
+
+  <div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-chevron-thin-up"></i></a>
+  </div>
+
+  <script src="js/scripts.min.js"></script>
+  <script src="js/main.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  </body>
+</html>
