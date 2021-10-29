@@ -47,9 +47,9 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/app/trace_produce">Trace Produce</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/app/blockchain_explorer">Blockchain Explorer</a>
+              <!-- <a class="dropdown-item" href="/app/blockchain_explorer">Blockchain Explorer</a> -->
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/weekly">Weekly View</a>
+              <!-- <a class="dropdown-item" href="/weekly">Weekly View</a> -->
             </div>
           </li>
 
@@ -227,6 +227,7 @@
                       data-logdatetime="<%=data[i].logdatetime%>"
                       data-lastmodifieddatetime="<%=data[i].lastmodifieddatetime%>">
                       Delete</a> -->
+                      
                   <% if(data[i].harvest_bool_added_to_blockchain!=='false' ){%> <a href="javascript:void(0);"
                       class="btn btn-xs btn-success">View on Blockchain</a>
                     <%}else{ %>
