@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include ./partials/head %>  
+      <link rel="stylesheet" href="css/timeline.css" />
+      <script src ="/js/script_qr.js" defer></script>
+      <link rel="stylesheet" href="css/style_qr.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  </head>
+  <body>
+   <!-- START: header -->
+
+  <div class="probootstrap-loader"></div>
+
+  <header role="banner" class="probootstrap-header">
+      <!-- views/partials/header.ejs -->
+<!-- START: header -->
+<!-- add immediately after body tag-->
+<div class="container">
+  <img class="logo" src="/img/FoodPrintLogo.png" height="70px" width="70px" align="left" vertical-align="middle">
+  <a href="/" class="probootstrap-logo" style="color:#0cad1a;font-size:35px;background:-webkit-radial-gradient(#B0A432, #1B1A19);font-variant: small-caps;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+">CERUS<span> </span></a>
+  
+      <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
+      <div class="mobile-menu-overlay"></div>
+  
+      <nav role="navigation" class="probootstrap-nav hidden-xs">
+      <ul class="probootstrap-main-nav">
+          <li <% if (page_name === 'home') { %>class="active" <% } %> ><a href="/">Home</a></li>
+          <li <% if (page_name === 'about') { %>class="active" <% } %> ><a href="/about">About</a></li>
+          <!-- <li <% if (page_name === 'gallery') { %>class="active" <% } %> ><a href="/gallery">Produce</a></li> -->
+          <li <% if (page_name === 'farmers') { %>class="active" <% } %> ><a href="/farmers">Farmers</a></li>
+          <!-- <li <% if (page_name === 'markets') { %>class="active" <% } %> ><a href="/markets">Markets</a></li> -->
+          <!-- <li <% if (page_name === 'retailers') { %>class="active" <% } %> ><a href="/retailers">Retailers</a></li> -->
+        
+  
+          <li class="nav-item dropdown">
+          <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+              <a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"> Operations</a> 
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/app/auth/login">Dashboard</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/auth/login">Reporting & Analytics</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/harvest">Harvest Logbook</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/storage">Storage/Handover Logbook</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/trace_produce">Trace Produce</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/blockchain_explorer">Blockchain Explorer</a>
+              <!-- <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Weekly View</a> -->
+          </div>
+          </li>
+        
+  
+          <!-- <li <% if (page_name === 'supplychain') { %>class="active" <% } %> ><a href="/app/supplychain">Supply Chain</a></li> This was from very first pilot with harvest and storage on one page July 2019 -->
+          <!--<li <% if (page_name === 'config') { %>class="active" <% } %> ><a href="/config">Config</a></li> --> 
+          <li <% if (page_name === 'login') { %>class="active" <% } %> >
+              <% if (user) { %>
+                  <a href="/app/auth/logout">Log out (<%=user.username%>)</a>
+                <% } else { %>
+                  <a href="/app/auth/login"><b>Log in</b></a>
+                <% } %>
+          </li>
+      </ul>
+      <div class="extra-text visible-xs">
+          <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+          <h5>Connect</h5>
+          <ul class="social-buttons">
+          <li><a href="#"><i class="icon-twitter"></i></a></li>
+          <li><a href="#"><i class="icon-facebook2"></i></a></li>
+          <li><a href="#"><i class="icon-instagram2"></i></a></li>
+          </ul>
+      </div>
+      </nav>
+  </div>
+  <!-- END: header -->
+  </header>
+  <!-- END: header -->
+
+  <section class="probootstrap-slider flexslider">
+    <div class="probootstrap-text-intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="probootstrap-slider-text text-center">
+              <h2 class="probootstrap-heading probootstrap-animate mb20" data-animate-effect="fadeIn">Farmers</h2>
+              <div class="probootstrap-animate probootstrap-sub-wrap mb30" data-animate-effect="fadeIn">Bringing the best produce to the table.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(/img/farmer_2.jpg);"></li>
+      <li style="background-image: url(/img/FMalan.jpg);"></li>
+      <li style="background-image: url(/img/rootvegbasket.jpg);"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <section class="probootstrap-section" style="background:lightgrey">
+    <div class="container">
+
+      <% include ./partials/notificationbar %>
+
+      <div class="row align-items-center justify-content-center" style="background-image: url('/img/pomegranite.jpg');background-size: cover;padding: 10px;">
+          
+        <div class="qrbox" style="border: 1px solid grey; background:whitesmoke;border-radius: 8px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <img src="/img/FoodPrintLogo.png"  class="qr_code" alt ="qr-code">
+            <form>
+                <div class="form-group">
+                  <label for="ID">Farmer ID</label>
+                  <input type="number" class="form-control" id="id">
+                </div>
+                <div class="form-group">
+                    <label for="prodName">Product Name</label>
+                    <input type="test" class="form-control" id="prodName">
+                </div>
+                <div class="form-group">
+                    <label for="qty">Weight</label>
+                    <input type="number" class="form-control" id="qty">
+                </div>
+                <div class="form-group">
+                    <label for="place">Place</label>
+                    <input type="text" class="form-control" id="place">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" class="form-control" id="price">
+                </div>
+            </form>
+            <button class="btn btn-primary"> Generate </button>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="probootstrap-section probootstrap-bg" style="background-image: url(/img/toms1.jpg);">
+<div class="container text-center">
+  <h2 class="heading probootstrap-animate" data-animate-effect="fadeIn">We Value your safety more...</h2>
+  <p class="sub-heading probootstrap-animate" data-animate-effect="fadeIn">Farmers are our friends where youy are our priority</p>
+</div>
+</section>
+
+<!-- start footer -->
+<% include ./partials/footer %>
+<!-- end footer -->  
+
+<div class="gototop js-top">
+<a href="#" class="js-gotop"><i class="icon-chevron-thin-up"></i></a>
+</div>
+
+<script src="js/scripts.min.js"></script>
+<script src="js/main.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <% include ./partials/head %>  
+      <link rel="stylesheet" href="css/timeline.css" />
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  </head>
+  <body>
+   <!-- START: header -->
+
+  <div class="probootstrap-loader"></div>
+
+  <header role="banner" class="probootstrap-header">
+      <!-- START: header -->
+<!-- add immediately after body tag-->
+<div class="container">
+  <img class="logo" src="/img/FoodPrintLogo.png" height="70px" width="70px" align="left" vertical-align="middle">
+  <a href="/" class="probootstrap-logo" style="color:#0cad1a;font-size:35px;background:-webkit-radial-gradient(#B0A432, #1B1A19);font-variant: small-caps;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+">CERUS<span> </span></a>
+  
+      <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
+      <div class="mobile-menu-overlay"></div>
+  
+      <nav role="navigation" class="probootstrap-nav hidden-xs">
+      <ul class="probootstrap-main-nav">
+          <li <% if (page_name === 'home') { %>class="active" <% } %> ><a href="/">Home</a></li>
+          <li <% if (page_name === 'about') { %>class="active" <% } %> ><a href="/about">About</a></li>
+          <li <% if (page_name === 'gallery') { %>class="active" <% } %> ><a href="/gallery">Produce</a></li>
+          <li <% if (page_name === 'farmers') { %>class="active" <% } %> ><a href="/farmers">Farmers</a></li>
+          <!-- <li <% if (page_name === 'markets') { %>class="active" <% } %> ><a href="/markets">Markets</a></li> -->
+          <!-- <li <% if (page_name === 'markets') { %>class="active" <% } %> ><a href="/markets">Distributors</a></li> -->
+          <!-- <li <% if (page_name === 'retailers') { %>class="active" <% } %> ><a href="/retailers">Retailers</a></li> -->
+  
+          <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Operations
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/app/auth/login">Dashboard</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/auth/login">Reporting & Analytics</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/harvest">Harvest Logbook</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/storage">Storage/Handover Logbook</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/trace_produce">Trace Produce</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/app/blockchain_explorer">Blockchain Explorer</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/weekly">Weekly View</a>
+          </div>
+          </li> -->
+  
+          <!-- <li <% if (page_name === 'supplychain') { %>class="active" <% } %> ><a href="/app/supplychain">Supply Chain</a></li> This was from very first pilot with harvest and storage on one page July 2019 -->
+          <!--<li <% if (page_name === 'config') { %>class="active" <% } %> ><a href="/config">Config</a></li> --> 
+          <li <% if (page_name === 'login') { %>class="active" <% } %> >
+              <% if (user) { %>
+                  <a href="/app/auth/logout">Log out (<%=user.username%>)</a>
+                <% } else { %>
+                  <a href="/app/auth/login"><b>Log in</b></a>
+                <% } %>
+          </li>
+      </ul>
+      <div class="extra-text visible-xs">
+          <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+          <h5>Connect</h5>
+          <ul class="social-buttons">
+          <li><a href="#"><i class="icon-twitter"></i></a></li>
+          <li><a href="#"><i class="icon-facebook2"></i></a></li>
+          <li><a href="#"><i class="icon-instagram2"></i></a></li>
+          </ul>
+      </div>
+      </nav>
+  </div>
+  <!-- END: header -->
+  </header>
+  <!-- END: header -->
+
+  <section class="probootstrap-slider flexslider">
+    <div class="probootstrap-text-intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="probootstrap-slider-text text-center">
+              <h2 class="probootstrap-heading probootstrap-animate mb20" data-animate-effect="fadeIn">our pride <span style="color:red">♥</span></h2>
+              <div class="probootstrap-animate probootstrap-sub-wrap mb30" data-animate-effect="fadeIn">You are our pride.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(/img/farmer_2.jpg);"></li>
+      <li style="background-image: url(/img/FMalan.jpg);"></li>
+      <li style="background-image: url(/img/rootvegbasket.jpg);"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <section class="probootstrap-section">
+    <div class="container">
+
+      <% include ./partials/notificationbar %>
+
+      <div class="row">
+        <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/SkyeF.jpg" alt="Free Template by uicookies.com" class="img-responsive imgGrid"></figure>
+            <div class="text">
+              <h2 class="heading">Skye Fehlmann</h2>
+              <p>Naturally Organic is a local family-run Organic Farm in Phillippi, Cape Town, that has been producing delicious fresh products for wholesale and retail since 2005.About twenty minutes from the city centre, Phillippi is a unique horticultural area because of the close proximity to the city and the famous aquifer that sustains the 2500 hectares of farmlands. We strive to make the most of everything the great outdoors has to offer. Our products are fresh from the field, so you can be sure you are buying the best quality produce.</p>
+              <p><a  class="btn btn-primary btn-sm" data-toggle="modal" data-target=".exampleModalCenter">View Details</a></p>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/boschfarm.jpg" alt="Free Template by uicookies.com" class="img-responsive"></figure>
+            <div class="text">
+              <h2 class="heading">Boschendal Farm</h2>
+              <p>A place where grass-fed Angus cattle, forest-fed pigs and free range chickens work alongside our farmers to replenish and revitalise the soils. It is a place where our ducks help gardeners grow exquisite bio-dynamic produce for our two restaurants – we very much like the idea of farming and cooking with nature, and not against it. It is a place where guests can swim in our dams and feel comfortable picking fruit from our orchards – we like sharing our extraordinary produce.</p>
+              <p><a href="#" class="btn btn-primary btn-sm">View Details</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/Sababa.jpg" alt="Free Template by uicookies.com" class="img-responsive"></figure>
+            <div class="text">
+              <h2 class="heading">Sababa Farm</h2>
+              <p>Sababa is part of a worldwide movement towards regenerative agriculture. We draw on various different approaches to deliver the highest quality, ecologically friendly, ethically grown food. Specialising in a variety of crops, we aim to increase biodiversity, improve the health of our soils, and experiment with new techniques in improving efficiency and sustainability for both commercial and subsistence agriculture.</p>
+              <p><a href="#" class="btn btn-primary btn-sm">View Details</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix visible-lg-block visible-md-block"></div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/RosenhofClare.jpg" alt="Free Template by uicookies.com" class="img-responsive "></figure>
+            <div class="text">
+              <h2 class="heading">Clare Kuiper</h2>
+              <p>On Rosenhof Farm, we’re passionate about reversing the industrialisation of our food and the pollution of the land that nurtures it. We grow apples and pears ( which are in conversion to an organic programme ), raspberries, free-range chickens, and organic fruit and vegetables.</p>
+              <p><a href="#" class="btn btn-primary btn-sm">View Details</a></p>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/MargM.jpg" alt="Free Template by uicookies.com" class="img-responsive imgGrid"></figure>
+            <div class="text">
+              <h2 class="heading">Margaret Ann McGregor</h2>
+              <p>Margaret McGregor, from Bergsoom Farm in Citrusdal in the Western Cape, is involved in the small family-run farm which has been operating for more than 30 years.</p>
+              <p><a  class="btn btn-primary btn-sm" data-toggle="modal" data-target=".exampleModalCenter">View Details</a></p>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/FMalan.jpg" alt="Francois Malan" class="img-responsive"></figure>
+            <div class="text">
+              <h2 class="heading">New Product</h2>
+              <p>Adding a new product that helps in giving the ability for us to keep your product in track and to maintain your product's geniuity.
+              </p>
+              <p><a href="/farmer_logged" class="btn btn-primary btn-sm">Add Product</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/quickcropvegetablefarm.jpg" alt="Arlene Van Wyk" class="img-responsive"></figure>
+            <div class="text">
+              <h2 class="heading">Keep Track of your products</h2>
+              <p>The main aim has been to kepp trach of the price the product and how we keep people safe and get you all that you deserve maintaining the geniuity of the product.</p>
+              <p><a href="/app/harvest" class="btn btn-primary btn-sm">View Details</a></p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="clearfix visible-sm-block"></div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/nuyvalley.jpg" alt="Free Template by uicookies.com" class="img-responsive "></figure>
+            <div class="text">
+              <h2 class="heading">Nuy Valley</h2>
+              <p>....</p>
+              <p><a href="#" class="btn btn-primary btn-sm">View Details</a></p>
+            </div>
+          </div>
+        </div> -->  
+        <!--<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate" data-animate-effect="fadeIn">
+          <div class="product-item">
+            <figure><img src="img/fruitThree.png" alt="Free Template by uicookies.com" class="img-responsive"></figure>
+            <div class="text">
+              <h2 class="heading">Arlene Van Wyk</h2>
+              <p>.....</p>
+              <p><a href="#" class="btn btn-primary btn-sm">View Details</a></p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="probootstrap-section probootstrap-bg" style="background-image: url(/img/toms1.jpg);">
+    <div class="container text-center">
+      <h2 class="heading probootstrap-animate" data-animate-effect="fadeIn">Farm-to-Fork Produce</h2>
+      <p class="sub-heading probootstrap-animate" data-animate-effect="fadeIn">Learning more about the food we eat and the farmers behind it</p>
+    </div>
+  </section> -->
+
+  <!-- start footer -->
+  <% include ./partials/footer %>
+  <!-- end footer -->  
+
+  <div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-chevron-thin-up"></i></a>
+  </div>
+
+  <script src="js/scripts.min.js"></script>
+  <script src="js/main.min.js"></script>
+  <script src="js/custom.js"></script>
+
+  </body>
+</html>
