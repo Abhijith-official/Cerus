@@ -1,0 +1,2 @@
+Markets file refers to Manufacturer / Distributor
+    --> since it needed to be modified everywhere it is bein kept the same
