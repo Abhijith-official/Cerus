@@ -46,6 +46,7 @@ var app = express();
 var configRouter = require('./routes/config');
 var harvestRouter = require('./routes/harvest');
 var storageRouter = require('./routes/storage');
+var retailerRouter = require('./routes/retailer');
 var authRouter = require('./routes/auth');
 var ROLES = require('./utils/roles');
 
@@ -109,6 +110,8 @@ app.use('/app/config', configRouter);
 app.use('/app/auth', authRouter);
 app.use('/app/harvest', harvestRouter);
 app.use('/app/storage', storageRouter);
+// I changed this now
+app.use('/app/retailer_log', retailerRouter);
 
 app.use(express.static(path.join(__dirname, "src")));
 app.use(express.static(path.join(__dirname, 'build')));
@@ -200,6 +203,13 @@ router.get('/app/supplychain',
     res.render('supplychain', { user: req.user, page_name: 'supplychain' });
   });
 
+  //retailer
+  router.get('/app/retailer_log',
+  require('connect-ensure-login').ensureLoggedIn({ redirectTo: '/app/auth/login' }),
+  function (req, res) {
+    res.render('retailer_log', { user: req.user, page_name: 'retailer' });
+  });
+
 //about
 router.get('/about', function (req, res) {
   res.render('about', { user: req.user, page_name: 'about' });
@@ -251,6 +261,13 @@ router.get('/distributor_logged',
 router.get('/retailers', function (req, res) {
   res.render('retailers', { user: req.user, page_name: 'retailers' });
 });
+
+// //retailers_logged
+// router.get('/app/retailer_log',
+//   require('connect-ensure-login').ensureLoggedIn({ redirectTo: '/app/auth/login' }),
+//   function (req, res) {
+//     res.render('retailer_log', { user: req.user, page_name: 'retailer' });
+//   })
 
 //pricing
 router.get('/pricing', function (req, res) {

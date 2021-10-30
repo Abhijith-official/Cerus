@@ -5,6 +5,7 @@ var records = [
   , { id: 3, username: 'farmer', password: 'pass_me_always', displayName: 'Farmer', prefs: [ { value: 'farmerbrown@example.com' } ], email: 'farmerbrown@example.com', role: 'Farmer'  }
   , { id: 4, username: 'consumer', password: 'pass_me_always', displayName: 'Consumer', prefs: [ { value: 'consumerjill@example.com' } ], email: 'consumerjill@example.com', role: 'Consumer'  }
   , { id: 5, username: 'bcregulator', password: 'authenticate_me', displayName: 'REGULATOR', prefs: [ { value: 'superuserjulz@example.com' } ], email: 'superuserjulz@example.com', role: 'Superuser'  }
+  , { id: 6, username: 'retailer', password: 'pass_me_always', displayName: 'Retailer', prefs: [ { value: 'retailer@example.com' } ], email: 'retailer_abhi@example.com', role: 'Retailer'  }
 ];
 
 exports.findById = function(id, cb) {

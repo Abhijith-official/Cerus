@@ -3,6 +3,7 @@ const ROLES = {
     Farmer: 'Farmer',
     Distributor: 'Distributor',
     Consumer: 'Consumer',
+    Retailer: 'Retailer',
     Superuser: 'Superuser'
   }
   
