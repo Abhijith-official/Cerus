@@ -1,9 +1,0 @@
-{
-        "db_pool": {
-        "host"      : "localhost",
-        "port"      : "",
-        "user"      : "",
-        "password"  : "",
-        "database"  : ""
-    }
-}
